@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<!--Paper Format-->
+    	<record id="paperformat_LetterPortrait" model="report.paperformat">
+		    <field name="name">US Letter Portrait</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">Letter</field>
+		    <field name="page_height">0</field>
+		    <field name="page_width">0</field>
+		    <field name="orientation">Portrait</field>
+		    <field name="margin_top">20</field>
+		    <field name="margin_bottom">20</field>
+		    <field name="margin_left">7</field>
+		    <field name="margin_right">7</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">7</field>
+		    <field name="dpi">80</field>
+		</record>
+    	<record id="paperformat_LetterLandscape" model="report.paperformat">
+		    <field name="name">US Letter Landscape</field>
+		    <field name="default" eval="True"/>
+		    <field name="format">Letter</field>
+		    <field name="page_height">0</field>
+		    <field name="page_width">0</field>
+		    <field name="orientation">Landscape</field>
+		    <field name="margin_top">15</field>
+		    <field name="margin_bottom">15</field>
+		    <field name="margin_left">2</field>
+		    <field name="margin_right">2</field>
+		    <field name="header_line" eval="False"/>
+		    <field name="header_spacing">7</field>
+		    <field name="dpi">100</field>
+		</record>
+		<!--Report PDF-->
+        <report 
+            id="action_report_delivery_order_pdf"
+            model="stock.picking"
+            string="Delivery Order Report"
+            report_type="qweb-pdf"
+            name="delivery_order_report.report_delivery_order_pdf"
+            file="delivery_order_report.report_delivery_order_pdf"
+            menu="False"/>
+		<!--Paper Format to delivery order report-->
+		<record id="action_report_delivery_order_pdf" model="ir.actions.report.xml">
+			<field name="paperformat_id" ref="delivery_order_report.paperformat_LetterLandscape"/>
+    	</record>
+	</data>
+</openerp>

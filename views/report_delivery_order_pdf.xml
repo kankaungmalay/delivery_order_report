@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="report_delivery_order_pdf">
+            <t t-call="report.html_container">
+                <t t-call="report.internal_layout">
+                    <div class="page">
+                        <span>
+							<h1 class="text-center">Delivery Order Report</h1>
+							<h4 class="text-center">
+								[ <span t-esc="display_company(data)"/> ]
+								<br/>
+								<br/>
+								Scheduled Date From : <span t-esc="get_date_from(data)"/>
+								<span> ~ </span>
+								To : <span t-esc="get_date_to(data)"/>
+							</h4>
+						</span>
+                        <br/>
+						<t t-if="has_orders(data) == False">
+							<table class="table table-condensed">
+								<tbody style="background-color:#E0E0E0">
+									<tr>
+										<td num_format_str="@" colspan="7" easyfx="font: height 200;align: horizontal center,vert center">There is no delivery order under selected criteria.</td>
+									</tr>
+								</tbody>
+							</table>
+                    	</t>
+						<t t-if="has_orders(data)==True">
+							<table class="table table-condensed">
+								<thead style="background-color:#E0E0E0" >
+									<tr>
+										<th class="text-center" style="border: 1px solid black">Scheduled Date</th>
+										<th class="text-center" style="border: 1px solid black">Created Date</th>
+										<th class="text-center" style="border: 1px solid black">Customer</th>
+										<th class="text-center" style="border: 1px solid black">Sale Order No</th>
+										<th class="text-center" style="border: 1px solid black">Delivery Order No</th>
+										<th class="text-center" style="border: 1px solid black">Order Transferred Date</th>
+										<th class="text-center" style="border: 1px solid black">Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- for looping -->
+									<t t-foreach="get_order_lines(data)" t-as="line">
+										<tr>
+											<td style="border: 1px solid black" num_format_str="MM/DD/YYYY HH:MM:SS" easyfx="align: horizontal right,vert center;font:height 200;"><span t-esc="line['scheduled_date']"/></td>
+											<td style="border: 1px solid black" num_format_str="MM/DD/YYYY HH:MM:SS" easyfx="align: horizontal right,vert center;font:height 200;"><span t-esc="line['created_date']"/></td>
+											<td style="border: 1px solid black" num_format_str="@" easyfx="align: horizontal right,vert center;font:height 200;"><span t-esc="line['customer']"/></td>
+											<td style="border: 1px solid black" num_format_str="@" easyfx="align: horizontal right,vert center;font:height 200;"><span t-esc="line['so_no']"/></td>
+											<td style="border: 1px solid black" num_format_str="@" easyfx="align: horizontal right,vert center;font:height 200;"><span t-esc="line['do_no']"/></td>
+											<td style="border: 1px solid black" num_format_str="MM/DD/YYYY HH:MM:SS" easyfx="align: horizontal right,vert center;font:height 200;"><span t-esc="line['transferred_date']"/></td>
+											<td style="border: 1px solid black" num_format_str="@" easyfx="align: horizontal right,vert center;font:height 200;"><span t-esc="line['status']"/></td>
+										</tr>
+									</t>
+									<!-- end of looping -->
+								</tbody>
+							</table>
+						</t>
+                    </div>
+                </t>
+            </t>
+        </template>
+        <template id="report_delivery_order">
+    		<t t-call="report.html_container">
+        		<t t-foreach="doc_ids" t-as="doc_id">
+            		<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'delivery_order_report.report_delivery_order_pdf')"/>
+        		</t>
+    		</t>
+		</template>
+    </data>
+</openerp>
