@@ -10,3 +10,6 @@ Delivery Order Report based on Filter Criteria
 - Select Company (It is optional)
 - Click Print
 - System will generate PDF Delivery Order Report
+
+Here is the sample results of this report intending for quick check whether it matches with your requirements or not:
+https://github.com/kankaungmalay/delivery_order_report/tree/master/static/sample_results
